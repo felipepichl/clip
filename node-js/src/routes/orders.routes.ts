@@ -1,21 +1,24 @@
 import { Router } from "express";
-import { v4 as uuidV4 } from "uuid";
+
+import { Order } from "../model/Order";
 
 const ordersRouter = Router();
 
-const orders = [];
+const orders: Order[] = [];
 
-ordersRouter.post("/orders", (request, response) => {
+ordersRouter.post("/", (request, response) => {
   const { budget } = request.body();
 
-  const order = {
-    id: uuidV4(),
+  const order = new Order();
+
+  Object.assign(order, {
     budget,
-  };
+    created_at: new Date(),
+  });
 
   orders.push(order);
 
-  return response.status(201).send();
+  return response.status(201).send({ order });
 });
 
 export { ordersRouter };
