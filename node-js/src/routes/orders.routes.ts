@@ -1,12 +1,12 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { Order } from "../model/Order";
+import { Order } from '../model/Order';
 
 const ordersRouter = Router();
 
 const orders: Order[] = [];
 
-ordersRouter.post("/", (request, response) => {
+ordersRouter.post('/', (request, response) => {
   const { budget } = request.body();
 
   const order = new Order();
