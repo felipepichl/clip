@@ -9,12 +9,11 @@ ordersRouter.post('/', (request, response) => {
 
   const repository = new OrderRepository();
 
-  const order = repository.create({
+  repository.create({
     budget,
-    created_at: new Date(),
   });
 
-  return response.status(201).send({ order });
+  return response.status(201).send();
 });
 
 export { ordersRouter };

@@ -4,16 +4,18 @@ import { ICreateOrderDTO } from '../dtos/CreateOrderDTO';
 import { Order } from '../model/Order';
 
 class OrderRepository {
-  private orders: Order[] = [];
+  private orders: Order[];
 
-  public async create({ budget }: ICreateOrderDTO): Promise<Order> {
+  constructor() {
+    this.orders = [];
+  }
+
+  public create({ budget }: ICreateOrderDTO): void {
     const order = new Order();
 
     Object.assign(order, { id: uuidV4() }, { budget, created_at: new Date() });
 
     this.orders.push(order);
-
-    return order;
   }
 }
 
