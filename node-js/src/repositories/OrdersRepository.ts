@@ -17,6 +17,10 @@ class OrderRepository {
 
     this.orders.push(order);
   }
+
+  public list(): Order[] {
+    return this.orders;
+  }
 }
 
 export { OrderRepository };

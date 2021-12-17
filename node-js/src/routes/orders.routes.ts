@@ -16,4 +16,12 @@ ordersRouter.post('/', (request, response) => {
   return response.status(201).send();
 });
 
+ordersRouter.get('/', (request, response) => {
+  const repository = new OrderRepository();
+
+  const orders = repository.list();
+
+  return response.json({ orders });
+});
+
 export { ordersRouter };
