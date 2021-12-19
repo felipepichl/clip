@@ -9,6 +9,12 @@ ordersRouter.post('/', (request, response) => {
 
   const repository = new OrderRepository();
 
+  const budgetAlreadyExists = repository.findByBudget(budget);
+
+  if (budgetAlreadyExists) {
+    return response.status(400).json({ error: 'Budget already exists' });
+  }
+
   repository.create({
     budget,
   });

@@ -21,6 +21,10 @@ class OrderRepository {
   public list(): Order[] {
     return this.orders;
   }
+
+  public findByBudget(budget: number): Order {
+    return this.orders.find((order) => order.budget === budget);
+  }
 }
 
 export { OrderRepository };
