@@ -3,11 +3,10 @@ import { Router } from 'express';
 import { OrderRepository } from '../repositories/OrdersRepository';
 
 const ordersRouter = Router();
+const repository = new OrderRepository();
 
 ordersRouter.post('/', (request, response) => {
   const { budget } = request.body();
-
-  const repository = new OrderRepository();
 
   const budgetAlreadyExists = repository.findByBudget(budget);
 
@@ -23,8 +22,6 @@ ordersRouter.post('/', (request, response) => {
 });
 
 ordersRouter.get('/', (request, response) => {
-  const repository = new OrderRepository();
-
   const orders = repository.list();
 
   return response.json({ orders });
