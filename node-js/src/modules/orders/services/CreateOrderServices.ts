@@ -1,11 +1,11 @@
-import { OrderRepository } from '../repositories/OrdersRepository';
+import { IOrderRepository } from '../repositories/IOrderRepository';
 
 interface IRequest {
   budget: number;
 }
 
 class CreateOrderServices {
-  constructor(private orderRepository: OrderRepository) {}
+  constructor(private orderRepository: IOrderRepository) {}
 
   public execute({ budget }: IRequest): void {
     const budgetAlreadyExists = this.orderRepository.findByBudget(budget);

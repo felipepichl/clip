@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { OrderRepository } from '../repositories/OrdersRepository';
-import { CreateOrderServices } from '../services/CreateOrderServices';
+import { OrderRepository } from '../modules/orders/repositories/OrdersRepository';
+import { CreateOrderServices } from '../modules/orders/services/CreateOrderServices';
 
 const ordersRouter = Router();
 const repository = new OrderRepository();
