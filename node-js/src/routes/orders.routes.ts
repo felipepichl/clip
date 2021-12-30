@@ -1,21 +1,11 @@
 import { Router } from 'express';
 
-// import { OrderRepository } from '../../modules/orders/repositories/OrdersRepository';
-import { CreateOrderServices } from '../modules/orders/services/CreateOrderServices';
+import { createOrderController } from '../modules/orders/useCases/CreateOrder';
 
 const ordersRouter = Router();
-// const repository = new OrderRepository();
 
 ordersRouter.post('/', (request, response) => {
-  const { budget } = request.body();
-
-  // const service = new CreateOrderServices(repository);
-
-  // service.execute({
-  //   budget,
-  // });
-
-  return response.status(201).send();
+  return createOrderController.handle(request, response);
 });
 
 ordersRouter.get('/', (request, response) => {

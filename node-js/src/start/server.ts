@@ -1,12 +1,11 @@
 import express from 'express';
 
-import { ordersRouter } from '../routes/orders.routes';
+import { router } from '../routes';
 
 const app = express();
 
 app.use(express.json());
-
-app.use('/orders', ordersRouter);
+app.use(router);
 
 app.listen(3333, () => {
   console.log('Server running in port 3333');

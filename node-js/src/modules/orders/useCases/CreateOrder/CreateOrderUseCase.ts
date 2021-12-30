@@ -1,10 +1,10 @@
-import { IOrderRepository } from '../repositories/IOrderRepository';
+import { IOrderRepository } from '../../repositories/IOrderRepository';
 
 interface IRequest {
   budget: number;
 }
 
-class CreateOrderServices {
+class CreateOrderUseCase {
   constructor(private orderRepository: IOrderRepository) {}
 
   public execute({ budget }: IRequest): void {
@@ -20,4 +20,4 @@ class CreateOrderServices {
   }
 }
 
-export { CreateOrderServices };
+export { CreateOrderUseCase };
