@@ -1,5 +1,4 @@
-import { Order } from 'modules/orders/model/Order';
-
+import { Order } from '../../model/Order';
 import { IOrderRepository } from '../../repositories/IOrderRepository';
 
 class ListOrdersUseCase {
