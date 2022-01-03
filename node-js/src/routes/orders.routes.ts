@@ -2,7 +2,8 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import { createOrderController } from '../modules/orders/useCases/CreateOrder';
-import { listOrdersController } from '../modules/orders/useCases/listOrders';
+import { importOrderController } from '../modules/orders/useCases/ImportOrder';
+import { listOrdersController } from '../modules/orders/useCases/ListOrders';
 
 const ordersRouter = Router();
 
@@ -19,11 +20,7 @@ ordersRouter.get('/', (request, response) => {
 });
 
 ordersRouter.post('/import', upload.single('file'), (request, response) => {
-  const { file } = request;
-
-  console.log(file);
-
-  return response.send();
+  return importOrderController.handle(request, response);
 });
 
 export { ordersRouter };
