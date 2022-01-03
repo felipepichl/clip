@@ -6,7 +6,9 @@ class CreateOrderController {
   constructor(private createOrderUseCase: CreateOrderUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    const { budget } = request.body();
+    const { budget } = request.body;
+
+    console.log(budget);
 
     this.createOrderUseCase.execute({
       budget,
