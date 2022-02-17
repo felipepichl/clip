@@ -1,5 +1,6 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
+import readline from 'readline';
 
 interface IRequest {
   file: Express.Multer.File;
@@ -20,9 +21,11 @@ class ImportOrderUseCase {
 
     const parseFile = parse();
 
-    steam.pipe(parseFile);
+    const rl = readline.createInterface({
+      input: fs.createReadStream(file.path),
+    });
 
-    parseFile.on('data', (line) => {
+    rl.on('line', (line) => {
       console.log(line);
     });
   }
