@@ -9,7 +9,7 @@ class CreateUserUseCase {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository
   ) {}
-  async handle({ name, phone }: ICreateUserDTO): Promise<void> {
+  async execute({ name, phone }: ICreateUserDTO): Promise<void> {
     const userAlreadyExists = await this.usersRepository.findByPhone(phone);
 
     if (userAlreadyExists) {
