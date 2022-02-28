@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
+import { AppError } from '../../../../shared/errors/AppError';
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 
@@ -13,7 +14,7 @@ class CreateUserUseCase {
     const userAlreadyExists = await this.usersRepository.findByPhone(phone);
 
     if (userAlreadyExists) {
-      throw new Error('Users already exists');
+      throw new AppError('Users already exists');
     }
 
     await this.usersRepository.create({
