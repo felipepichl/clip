@@ -13,7 +13,7 @@ issuesRoutes.post('', (request, response) => {
     longitude,
   });
 
-  return response.status(201);
+  return response.status(201).send();
 });
 
 export { issuesRoutes };
