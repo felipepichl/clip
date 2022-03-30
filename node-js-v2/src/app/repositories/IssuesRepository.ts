@@ -27,6 +27,10 @@ class IssuesRepository {
 
     return issue;
   }
+
+  public list(): Issue[] {
+    return this.issues;
+  }
 }
 
 export { IssuesRepository };

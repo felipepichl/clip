@@ -18,4 +18,12 @@ issuesRoutes.post('', (request, response) => {
   return response.status(201).send({ issue });
 });
 
+issuesRoutes.get('', (request, response) => {
+  const repository = new IssuesRepository();
+
+  const issues = repository.list();
+
+  return response.status(200).json({ issues });
+});
+
 export { issuesRoutes };
