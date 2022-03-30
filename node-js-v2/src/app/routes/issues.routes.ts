@@ -1,23 +1,26 @@
 import { Router } from 'express';
-import { v4 as uuid } from 'uuid';
+
+import { Issue } from '../entities/Issue';
 
 const issuesRoutes = Router();
 
-const issues = [];
+const issues: Issue[] = [];
 
 issuesRoutes.post('', (request, response) => {
   const { description, latitude, longitude } = request.body;
 
-  const issue = {
-    id: uuid(),
+  const issue = new Issue();
+
+  Object.assign(issue, {
     description,
     latitude,
     longitude,
-  };
+    created_at: new Date(),
+  });
 
   issues.push(issue);
 
-  return response.status(201).send();
+  return response.status(201).send({ issue });
 });
 
 export { issuesRoutes };
