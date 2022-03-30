@@ -1,24 +1,19 @@
 import { Router } from 'express';
 
-import { Issue } from '../entities/Issue';
+import { IssuesRepository } from '../repositories/IssuesRepository';
 
 const issuesRoutes = Router();
-
-const issues: Issue[] = [];
 
 issuesRoutes.post('', (request, response) => {
   const { description, latitude, longitude } = request.body;
 
-  const issue = new Issue();
+  const repository = new IssuesRepository();
 
-  Object.assign(issue, {
+  const issue = repository.create({
     description,
     latitude,
     longitude,
-    created_at: new Date(),
   });
-
-  issues.push(issue);
 
   return response.status(201).send({ issue });
 });
