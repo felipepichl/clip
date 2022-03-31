@@ -4,23 +4,21 @@ import { IssuesRepository } from '../repositories/IssuesRepository';
 
 const issuesRoutes = Router();
 
+const repository = new IssuesRepository();
+
 issuesRoutes.post('', (request, response) => {
   const { description, latitude, longitude } = request.body;
 
-  const repository = new IssuesRepository();
-
-  const issue = repository.create({
+  repository.create({
     description,
     latitude,
     longitude,
   });
 
-  return response.status(201).send({ issue });
+  return response.status(201).send();
 });
 
 issuesRoutes.get('', (request, response) => {
-  const repository = new IssuesRepository();
-
   const issues = repository.list();
 
   return response.status(200).json({ issues });
