@@ -21,7 +21,7 @@ issuesRoutes.post('', (request, response) => {
 issuesRoutes.get('', (request, response) => {
   const issues = repository.list();
 
-  return response.status(200).json({ issues });
+  return response.json(issues);
 });
 
 export { issuesRoutes };
