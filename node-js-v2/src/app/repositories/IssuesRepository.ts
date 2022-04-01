@@ -1,3 +1,5 @@
+import { AppError } from 'app/error/AppError';
+
 import { ICreateIssueDTO } from '../dtos/ICreateIssueDTO';
 import { Issue } from '../entities/Issue';
 
@@ -8,13 +10,22 @@ class IssuesRepository {
     this.issues = [];
   }
 
-  public create({ description, latitude, longitude }: ICreateIssueDTO): void {
+  public create({ description, cordinates }: ICreateIssueDTO): void {
     const issue = new Issue();
+
+    const cordinateExists = this.issues.find(
+      issue =>
+        issue.latitude === cordinates.latitude &&
+        issue.longitude === cordinates.longitude,
+    );
+
+    if (!cordinateExists) {
+      throw new AppError('Cordinates already exists', 404);
+    }
 
     Object.assign(issue, {
       description,
-      latitude,
-      longitude,
+      cordinates,
     });
 
     this.issues.push(issue);

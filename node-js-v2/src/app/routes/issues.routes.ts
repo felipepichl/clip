@@ -11,8 +11,10 @@ issuesRoutes.post('', (request, response) => {
 
   repository.create({
     description,
-    latitude,
-    longitude,
+    cordinates: {
+      latitude,
+      longitude,
+    },
   });
 
   return response.status(201).send();

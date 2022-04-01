@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
 import { AppError } from 'app/error/AppError';
+import { Request, Response } from 'express';
 import * as Yup from 'yup';
 
 import { UsersServices } from '../services/UsersServices';

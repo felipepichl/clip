@@ -1,9 +1,9 @@
+import { ICordinates } from 'app/utils/ICordinates';
+
 interface ICreateIssueDTO {
   description: string;
 
-  latitude: number;
-
-  longitude: number;
+  cordinates: ICordinates;
 }
 
 export { ICreateIssueDTO };
