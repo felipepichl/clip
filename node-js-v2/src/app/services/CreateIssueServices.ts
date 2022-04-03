@@ -1,4 +1,4 @@
-import { IssuesRepository } from 'app/repositories/IssuesRepository';
+import { IIssuesRepository } from 'app/repositories/IIssuesRepository';
 
 interface IRequest {
   description: string;
@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 class CreateIssueServices {
-  constructor(private issuesRepository: IssuesRepository) {}
+  constructor(private issuesRepository: IIssuesRepository) {}
 
   execute({ description, cordinates }: IRequest): void {
     this.issuesRepository.create({
