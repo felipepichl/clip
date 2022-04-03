@@ -1,29 +1,29 @@
 import { Router } from 'express';
 
 import { IssuesRepository } from '../repositories/IssuesRepository';
+import { CreateIssueServices } from '../services/CreateIssueServices';
 
 const issuesRoutes = Router();
-
-const repository = new IssuesRepository();
 
 issuesRoutes.post('', (request, response) => {
   const { description, latitude, longitude } = request.body;
 
-  repository.create({
-    description,
-    cordinates: {
-      latitude,
-      longitude,
-    },
-  });
+  const services = new CreateIssueServices(new IssuesRepository());
+
+  const cordinates = {
+    latitude,
+    longitude,
+  };
+
+  services.execute({ description, cordinates });
 
   return response.status(201).send();
 });
 
 issuesRoutes.get('', (request, response) => {
-  const issues = repository.list();
+  // const issues = repository.list();
 
-  return response.json(issues);
+  return response.json({ message: 'ToDo' });
 });
 
 export { issuesRoutes };
