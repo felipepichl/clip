@@ -1,10 +1,8 @@
 import 'reflect-metadata';
-
+import { AppError } from 'app/error/AppError';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import '../database';
-
-import { AppError } from 'app/error/AppError';
 
 import routes from '../routes';
 

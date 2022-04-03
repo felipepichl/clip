@@ -1,6 +1,6 @@
+import { issuesRoutes } from '@modules/issues/routes/issues.routes';
 import { Router } from 'express';
 
-import { issuesRoutes } from '../app/routes/issues.routes';
 import { sessionRouter } from '../app/routes/session.routes';
 import { createUserRouter } from '../app/routes/user.routes';
 

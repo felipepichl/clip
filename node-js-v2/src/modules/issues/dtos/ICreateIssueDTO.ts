@@ -1,4 +1,4 @@
-import { ICordinates } from 'app/utils/ICordinates';
+import { ICordinates } from '../utils/ICordinates';
 
 interface ICreateIssueDTO {
   description: string;

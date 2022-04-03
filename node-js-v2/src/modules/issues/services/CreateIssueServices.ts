@@ -1,4 +1,4 @@
-import { IIssuesRepository } from 'app/repositories/IIssuesRepository';
+import { IIssuesRepository } from '../repositories/IIssuesRepository';
 
 interface IRequest {
   description: string;
