@@ -14,7 +14,7 @@ class CreateUsersServices {
   execute({ name, email, password }: IRequest): void {
     const user = this.usersRepository.findByEmail(email);
 
-    if (!user) {
+    if (user) {
       throw new AppError('Users already exists', 400);
     }
 
