@@ -1,4 +1,4 @@
-import { IIssuesRepository } from '../repositories/IIssuesRepository';
+import { IIssuesRepository } from '../../repositories/IIssuesRepository';
 
 interface IRequest {
   description: string;
@@ -8,7 +8,7 @@ interface IRequest {
   };
 }
 
-class CreateIssueServices {
+class CreateIssueUseCase {
   constructor(private issuesRepository: IIssuesRepository) {}
 
   execute({ description, cordinates }: IRequest): void {
@@ -19,4 +19,4 @@ class CreateIssueServices {
   }
 }
 
-export { CreateIssueServices };
+export { CreateIssueUseCase };
