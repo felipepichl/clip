@@ -1,6 +1,6 @@
 import { AppError } from 'app/error/AppError';
 
-import { IUsersRepository } from '../repositories/IUsersRepository';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IRequest {
   name: string;
@@ -8,7 +8,7 @@ interface IRequest {
   password: string;
 }
 
-class CreateUsersServices {
+class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ name, email, password }: IRequest): void {
@@ -22,4 +22,4 @@ class CreateUsersServices {
   }
 }
 
-export { CreateUsersServices };
+export { CreateUserUseCase };
