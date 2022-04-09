@@ -1,4 +1,4 @@
-import { IssuesRepository } from '../../repositories/IssuesRepository';
+import { IssuesRepository } from '../../repositories/implementations/IssuesRepository';
 import { CreateIssueController } from './CreateIssueController';
 import { CreateIssueUseCase } from './CreateIssueUseCase';
 

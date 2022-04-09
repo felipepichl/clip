@@ -1,6 +1,6 @@
-import { ICreateIssueDTO } from '../dtos/ICreateIssueDTO';
-import { Issue } from '../entities/Issue';
-import { IIssuesRepository } from './IIssuesRepository';
+import { ICreateIssueDTO } from '../../dtos/ICreateIssueDTO';
+import { Issue } from '../../entities/Issue';
+import { IIssuesRepository } from '../IIssuesRepository';
 
 class IssuesRepository implements IIssuesRepository {
   private issues: Issue[];
