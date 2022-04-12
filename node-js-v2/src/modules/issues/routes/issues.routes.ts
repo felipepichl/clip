@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { createIssueController } from '../useCases/createIssue';
+import { listIssuesController } from '../useCases/listIssues';
 
 const issuesRoutes = Router();
 
@@ -9,7 +10,9 @@ issuesRoutes.post('', (request, response) => {
 });
 
 issuesRoutes.get('', (request, response) => {
-  return response.json({ message: 'ToDo' });
+  const issues = listIssuesController.handle(request, response);
+
+  return response.json(issues);
 });
 
 export { issuesRoutes };
