@@ -5,8 +5,18 @@ import { IIssuesRepository } from '../IIssuesRepository';
 class IssuesRepository implements IIssuesRepository {
   private issues: Issue[];
 
-  constructor() {
+  private static INSTANCE: IssuesRepository;
+
+  private constructor() {
     this.issues = [];
+  }
+
+  public static getIntance(): IssuesRepository {
+    if (!IssuesRepository.INSTANCE) {
+      IssuesRepository.INSTANCE = new IssuesRepository();
+    }
+
+    return IssuesRepository.INSTANCE;
   }
 
   public create({ description, cordinates }: ICreateIssueDTO): void {
