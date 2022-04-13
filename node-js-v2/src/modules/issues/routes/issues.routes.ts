@@ -10,9 +10,7 @@ issuesRoutes.post('', (request, response) => {
 });
 
 issuesRoutes.get('', (request, response) => {
-  const issues = listIssuesController.handle(request, response);
-
-  return response.json(issues);
+  return listIssuesController.handle(request, response);
 });
 
 export { issuesRoutes };
