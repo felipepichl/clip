@@ -6,8 +6,18 @@ import { IUsersRepository } from '../IUsersRepository';
 class UsersRepository implements IUsersRepository {
   private users: User[];
 
-  constructor() {
+  private constructor() {
     this.users = [];
+  }
+
+  public static INSTANCE: UsersRepository;
+
+  public static getIntance(): UsersRepository {
+    if (!UsersRepository.INSTANCE) {
+      return new UsersRepository();
+    }
+
+    return UsersRepository.INSTANCE;
   }
 
   create({ name, email, password }: ICreateUserDTO): void {
