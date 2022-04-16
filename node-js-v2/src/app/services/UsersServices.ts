@@ -1,7 +1,7 @@
-import { Repository, getCustomRepository } from 'typeorm';
-import { hash } from 'bcryptjs';
-
 import { User } from '@entities/User';
+import { hash } from 'bcryptjs';
+import { Repository, getCustomRepository } from 'typeorm';
+
 import { UsersRepository } from '../repositories/UsersRepository';
 
 interface IRequest {

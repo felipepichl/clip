@@ -2,7 +2,7 @@ import authConfig from '@config/auth';
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import { AppError } from '../error/AppError';
+import { AppError } from '@shared/error/AppError';
 
 interface ITokenPayload {
   iat: number;
@@ -10,6 +10,7 @@ interface ITokenPayload {
   sub: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function ensureAuthenticated(
   request: Request,
   response: Response,

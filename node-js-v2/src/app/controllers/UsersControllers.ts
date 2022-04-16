@@ -1,6 +1,7 @@
-import { AppError } from 'app/error/AppError';
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
+
+import { AppError } from '@shared/error/AppError';
 
 import { UsersServices } from '../services/UsersServices';
 
