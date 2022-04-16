@@ -12,4 +12,4 @@ router.use('/session', sessionRouter);
 
 issuesRoutes.use('issues', issuesRoutes);
 
-export default router;
+export { router };

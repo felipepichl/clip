@@ -12,6 +12,7 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
       "@controller/*": ["app/controllers/*"],
       "@entities/*": ["app/entities/*"]
     },
