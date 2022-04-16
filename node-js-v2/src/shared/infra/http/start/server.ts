@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from 'express';
 
 import { AppError } from '@shared/error/AppError';
 import 'express-async-errors';
-import '../database';
+import '@shared/infra/typeorm';
 
 import { router } from '../routes';
 
