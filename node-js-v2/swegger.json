@@ -7,5 +7,44 @@
     "contact": {
       "email": "felipe.pichl@hotmail.com"
     }
+  },
+  "paths": {
+    "/issues": {
+      "tags": ["Issue"],
+      "post": {
+        "summary": "Create Issue",
+        "description": "Create a new Issue",
+        "requestBody": {
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description" : {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "description": "issue name sampled",
+                  "latitude": 1111,
+                  "longitude": 2222
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    }
   }
 }
