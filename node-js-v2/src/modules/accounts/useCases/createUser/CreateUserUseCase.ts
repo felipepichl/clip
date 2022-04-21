@@ -1,4 +1,4 @@
-import { AppError } from 'app/error/AppError';
+import { AppError } from '@shared/error/AppError';
 
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 

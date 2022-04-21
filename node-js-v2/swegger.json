@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Node documentation",
+    "description": "This is an API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "felipe.pichl@hotmail.com"
+    }
+  }
+}
