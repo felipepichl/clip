@@ -10,13 +10,13 @@
   },
   "paths": {
     "/issues": {
-      "tags": ["Issue"],
       "post": {
+        "tags": ["Issues"],
         "summary": "Create Issue",
         "description": "Create a new Issue",
         "requestBody": {
           "content": {
-            "aplication/json": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -32,8 +32,8 @@
                 },
                 "example": {
                   "description": "issue name sampled",
-                  "latitude": 1111,
-                  "longitude": 2222
+                  "latitude": -30.1093778,
+                  "longitude": -51.3166929
                 }
               }
             }
