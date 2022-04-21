@@ -5,11 +5,11 @@ import { listIssuesController } from '../useCases/listIssues';
 
 const issuesRoutes = Router();
 
-issuesRoutes.post('', (request, response) => {
+issuesRoutes.post('/', (request, response) => {
   return createIssueController.handle(request, response);
 });
 
-issuesRoutes.get('', (request, response) => {
+issuesRoutes.get('/', (request, response) => {
   return listIssuesController.handle(request, response);
 });
 

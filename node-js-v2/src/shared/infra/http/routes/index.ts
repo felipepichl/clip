@@ -10,6 +10,6 @@ const router = Router();
 router.use('/users', usersRouter);
 // router.use('/session', sessionRouter);
 
-issuesRoutes.use('/issues', issuesRoutes);
+router.use('/issues', issuesRoutes);
 
 export { router };
