@@ -41,7 +41,19 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Create a new Issue",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "6fed2a42-2a28-4f80-b58b-6ad11677ae8e",
+                  "description": "issue name sampled",
+                  "cordinates": {
+                    "latitude": -30.1093778,
+                    "longitude": -51.3166929
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -68,7 +80,7 @@
                             "type": "number"
                           },
                           "longitude": {
-                            "type": "number"
+                            "type": ""
                           }
                         }
                       }
