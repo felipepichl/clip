@@ -9,6 +9,40 @@
     }
   },
   "paths": {
+    "users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create users",
+        "description": "Create a new user",
+        "requestBody": {
+          "required": true,
+          "description": "Fileds required for create a new user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "John Due",
+                  "email": "johndue@example.com",
+                  "password": "@hash_13"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/issues": {
       "post": {
         "tags": ["Issues"],
