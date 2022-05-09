@@ -40,6 +40,34 @@
               }
             }
           }
+        },
+        "responses": {
+          "201": {
+            "description": "Create a new user",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "e5f29978-8764-417c-9ff3-d73964e331d7",
+                  "admin": false,
+                  "name": "John Due",
+                  "email": "johndue@example.com",
+                  "created_at": "2022-04-29T01:02:49.546Z",
+                  "updated_at": "2022-04-29T01:02:49.546Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: Bad Request",
+            "content": {
+              "application/json": {
+
+                "example": {
+                  "error": "User already exists"
+                }
+              }
+            }
+          }
         }
       }
     },
