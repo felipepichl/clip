@@ -1,13 +1,14 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
 import { User } from '@modules/accounts/entities/User';
+import { getRepository, Repository } from 'typeorm';
 
 import { IUsersRepository } from '../IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
-  private users: User[];
+  private repository: Repository<User>;
 
   private constructor() {
-    this.users = [];
+    this.repository = getRepository(User);
   }
 
   public static INSTANCE: UsersRepository;
@@ -20,20 +21,17 @@ class UsersRepository implements IUsersRepository {
     return UsersRepository.INSTANCE;
   }
 
-  create({ name, email, password }: ICreateUserDTO): void {
-    const user = new User();
-
-    Object.assign(user, {
+  async create({ name, email, password }: ICreateUserDTO): Promise<void> {
+    const user = this.repository.create({
       name,
       email,
       password,
-      created_at: new Date(),
     });
 
-    this.users.push(user);
+    await this.repository.save(user);
   }
-  findByEmail(email: string): User {
-    const user = this.users.find(user => user.email === email);
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.repository.findOne(email);
 
     return user;
   }
