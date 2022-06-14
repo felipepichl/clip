@@ -2,9 +2,11 @@ import { UsersRepository } from '../../repositories/implementations/UsersReposit
 import { CreateUserController } from './CreateUserController';
 import { CreateUserUseCase } from './CreateUserUseCase';
 
-const usersRepository = UsersRepository.getIntance();
-const createUserUseCase = new CreateUserUseCase(usersRepository);
+export default (): CreateUserController => {
+  const usersRepository = new UsersRepository();
+  const createUserUseCase = new CreateUserUseCase(usersRepository);
 
-const createUserController = new CreateUserController(createUserUseCase);
+  const createUserController = new CreateUserController(createUserUseCase);
 
-export { createUserController };
+  return createUserController;
+};

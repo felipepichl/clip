@@ -11,14 +11,14 @@ interface IRequest {
 class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ name, email, password }: IRequest): void {
-    const user = this.usersRepository.findByEmail(email);
+  async execute({ name, email, password }: IRequest): Promise<void> {
+    const user = await this.usersRepository.findByEmail(email);
 
     if (user) {
       throw new AppError('Users already exists', 400);
     }
 
-    this.usersRepository.create({ name, email, password });
+    await this.usersRepository.create({ name, email, password });
   }
 }
 

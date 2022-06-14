@@ -7,21 +7,15 @@ import { IUsersRepository } from '../IUsersRepository';
 class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
-  private constructor() {
+  constructor() {
     this.repository = getRepository(User);
   }
 
-  public static INSTANCE: UsersRepository;
-
-  public static getIntance(): UsersRepository {
-    if (!UsersRepository.INSTANCE) {
-      return new UsersRepository();
-    }
-
-    return UsersRepository.INSTANCE;
-  }
-
-  async create({ name, email, password }: ICreateUserDTO): Promise<void> {
+  public async create({
+    name,
+    email,
+    password,
+  }: ICreateUserDTO): Promise<void> {
     const user = this.repository.create({
       name,
       email,
@@ -30,7 +24,8 @@ class UsersRepository implements IUsersRepository {
 
     await this.repository.save(user);
   }
-  async findByEmail(email: string): Promise<User> {
+
+  public async findByEmail(email: string): Promise<User> {
     const user = await this.repository.findOne({ email });
 
     return user;
