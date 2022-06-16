@@ -2,9 +2,11 @@ import { IssuesRepository } from '../../repositories/implementations/IssuesRepos
 import { CreateIssueController } from './CreateIssueController';
 import { CreateIssueUseCase } from './CreateIssueUseCase';
 
-const issuesRepository = IssuesRepository.getIntance();
+export default (): CreateIssueController => {
+  const issuesRepository = new IssuesRepository();
 
-const createIssueUseCase = new CreateIssueUseCase(issuesRepository);
-const createIssueController = new CreateIssueController(createIssueUseCase);
+  const createIssueUseCase = new CreateIssueUseCase(issuesRepository);
+  const createIssueController = new CreateIssueController(createIssueUseCase);
 
-export { createIssueController };
+  return createIssueController;
+};

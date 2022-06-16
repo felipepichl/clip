@@ -11,8 +11,8 @@ interface IRequest {
 class CreateIssueUseCase {
   constructor(private issuesRepository: IIssuesRepository) {}
 
-  execute({ description, cordinates }: IRequest): void {
-    this.issuesRepository.create({
+  async execute({ description, cordinates }: IRequest): Promise<void> {
+    await this.issuesRepository.create({
       description,
       cordinates,
     });
