@@ -1,47 +1,35 @@
+import { Repository, getRepository } from 'typeorm';
+
 import { ICreateIssueDTO } from '../../dtos/ICreateIssueDTO';
 import { Issue } from '../../entities/Issue';
 import { IIssuesRepository } from '../IIssuesRepository';
 
 class IssuesRepository implements IIssuesRepository {
-  private issues: Issue[];
+  private issues: Repository<Issue>;
 
-  private static INSTANCE: IssuesRepository;
-
-  private constructor() {
-    this.issues = [];
+  constructor() {
+    this.issues = getRepository(Issue);
   }
 
-  public static getIntance(): IssuesRepository {
-    if (!IssuesRepository.INSTANCE) {
-      IssuesRepository.INSTANCE = new IssuesRepository();
-    }
+  public async create({
+    description,
+    cordinates,
+  }: ICreateIssueDTO): Promise<void> {
+    const { latitude, longitude } = cordinates;
 
-    return IssuesRepository.INSTANCE;
-  }
-
-  public create({ description, cordinates }: ICreateIssueDTO): void {
-    const issue = new Issue();
-
-    // const cordinateExists = this.issues.some(
-    //   issue =>
-    //     issue.latitude === cordinates.latitude &&
-    //     issue.longitude === cordinates.longitude,
-    // );
-
-    // if (!cordinateExists) {
-    //   throw new AppError('Cordinates already exists', 400);
-    // }
-
-    Object.assign(issue, {
+    const issue = this.issues.create({
       description,
-      cordinates,
+      latitude,
+      longitude,
     });
 
-    this.issues.push(issue);
+    await this.issues.save(issue);
   }
 
-  public list(): Issue[] {
-    return this.issues;
+  public async list(): Promise<Issue[]> {
+    const issues = this.issues.find();
+
+    return issues;
   }
 }
 
