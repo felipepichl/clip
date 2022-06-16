@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+
 import { IIssuesRepository } from '../../repositories/IIssuesRepository';
 
 interface IRequest {
@@ -8,8 +10,12 @@ interface IRequest {
   };
 }
 
+@injectable()
 class CreateIssueUseCase {
-  constructor(private issuesRepository: IIssuesRepository) {}
+  constructor(
+    @inject('IssuesRepository')
+    private issuesRepository: IIssuesRepository,
+  ) {}
 
   async execute({ description, cordinates }: IRequest): Promise<void> {
     await this.issuesRepository.create({
