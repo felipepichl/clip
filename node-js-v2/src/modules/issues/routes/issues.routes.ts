@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import createIssueController from '../useCases/createIssue';
+import { CreateIssueController } from '../useCases/createIssue/CreateIssueController';
 import listIssuesController from '../useCases/listIssues';
 
 const issuesRoutes = Router();
 
-issuesRoutes.post('/', (request, response) => {
-  return createIssueController().handle(request, response);
-});
+const createIssueController = new CreateIssueController();
+
+issuesRoutes.post('/', createIssueController.handle);
 
 issuesRoutes.get('/', (request, response) => {
   return listIssuesController().handle(request, response);

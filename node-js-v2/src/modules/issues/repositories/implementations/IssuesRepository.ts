@@ -23,7 +23,9 @@ class IssuesRepository implements IIssuesRepository {
       longitude,
     });
 
-    await this.issues.save(issue);
+    console.log(issue);
+
+    // await this.issues.save(issue);
   }
 
   public async list(): Promise<Issue[]> {
