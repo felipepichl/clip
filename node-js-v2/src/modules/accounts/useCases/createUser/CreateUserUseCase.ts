@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe';
+
 import { AppError } from '@shared/error/AppError';
 
 import { IUsersRepository } from '../../repositories/IUsersRepository';
@@ -8,8 +10,12 @@ interface IRequest {
   password: string;
 }
 
+@injectable()
 class CreateUserUseCase {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
 
   async execute({ name, email, password }: IRequest): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
