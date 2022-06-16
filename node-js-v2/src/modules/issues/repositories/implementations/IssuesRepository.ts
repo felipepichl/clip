@@ -27,7 +27,7 @@ class IssuesRepository implements IIssuesRepository {
   }
 
   public async list(): Promise<Issue[]> {
-    const issues = this.issues.find();
+    const issues = await this.issues.find();
 
     return issues;
   }

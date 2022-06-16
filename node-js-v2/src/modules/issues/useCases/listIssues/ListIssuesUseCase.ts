@@ -4,8 +4,10 @@ import { IIssuesRepository } from '../../repositories/IIssuesRepository';
 class ListIssuesUseCase {
   constructor(private issuesRepository: IIssuesRepository) {}
 
-  execute(): Issue[] {
-    return this.issuesRepository.list();
+  async execute(): Promise<Issue[]> {
+    const issues = await this.issuesRepository.list();
+
+    return issues;
   }
 }
 
