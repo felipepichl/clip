@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import { CreateIssueUseCase } from './CreateIssueUseCase';
 
 class CreateIssueController {
-  constructor(private createIssueUseCase: CreateIssueUseCase) {}
-
   async handle(request: Request, response: Response): Promise<Response> {
     const { description, latitude, longitude } = request.body;
 
@@ -13,7 +12,9 @@ class CreateIssueController {
       longitude,
     };
 
-    await this.createIssueUseCase.execute({ description, cordinates });
+    const createIssueUseCase = container.resolve(CreateIssueUseCase);
+
+    await createIssueUseCase.execute({ description, cordinates });
 
     return response.status(201).send();
   }
