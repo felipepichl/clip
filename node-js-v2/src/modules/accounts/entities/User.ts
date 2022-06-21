@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 @Entity('users')
 class User {
   @PrimaryColumn()
-  private readonly id: string;
+  readonly id: string;
 
   @Column()
   name: string;
