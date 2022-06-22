@@ -12,13 +12,21 @@ interface IRequest {
   password: string;
 }
 
+interface IResponse {
+  user: {
+    name: string;
+    email: string;
+  };
+  token: string;
+}
+
 class AuthenticateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute({ email, password }: IRequest): Promise<void> {
+  async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -37,6 +45,16 @@ class AuthenticateUserUseCase {
       subject: user.id,
       expiresIn,
     });
+
+    const returnResponse: IResponse = {
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+      token,
+    };
+
+    return returnResponse;
   }
 }
 
