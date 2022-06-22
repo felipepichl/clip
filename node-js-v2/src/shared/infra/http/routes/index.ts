@@ -6,7 +6,7 @@ import { Router } from 'express';
 const router = Router();
 
 router.use('/users', usersRouter);
-router.use('/sessions', authenticateRoutes);
+router.use(authenticateRoutes);
 
 router.use('/issues', issuesRouter);
 
