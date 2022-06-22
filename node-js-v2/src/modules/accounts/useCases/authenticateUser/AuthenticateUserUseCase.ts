@@ -1,7 +1,7 @@
 import { authConfig } from '@config/auth';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '@shared/error/AppError';
 
@@ -20,6 +20,7 @@ interface IResponse {
   token: string;
 }
 
+@injectable()
 class AuthenticateUserUseCase {
   constructor(
     @inject('UsersRepository')
@@ -30,13 +31,13 @@ class AuthenticateUserUseCase {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('Incorret email/pawword combination');
+      throw new AppError('Incorret email/password combination');
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new AppError('Incorret email/pawword combination');
+      throw new AppError('Incorret email/password combination');
     }
 
     const { secret, expiresIn } = authConfig;
