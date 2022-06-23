@@ -1,4 +1,4 @@
-import authConfig from '@config/auth';
+import { authConfig } from '@config/auth';
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
@@ -10,12 +10,11 @@ interface ITokenPayload {
   sub: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function ensureAuthenticated(
+function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
-) {
+): void {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -25,7 +24,7 @@ export function ensureAuthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = verify(token, authConfig.jwt.secret);
+    const decoded = verify(token, authConfig.secret);
 
     const { sub } = decoded as ITokenPayload;
 
@@ -38,3 +37,5 @@ export function ensureAuthenticated(
     throw new AppError('Invalid JWT token', 401);
   }
 }
+
+export { ensureAuthenticated };
