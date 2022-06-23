@@ -1,3 +1,4 @@
+import { ensureAuthenticated } from '@modules/accounts/infra/http/middlewares/ensureAuthenticated';
 import { Router } from 'express';
 
 import { CreateIssueController } from '../useCases/createIssue/CreateIssueController';
@@ -7,6 +8,8 @@ const issuesRouter = Router();
 
 const createIssueController = new CreateIssueController();
 const listIssuesController = new ListIssuesController();
+
+issuesRouter.use(ensureAuthenticated);
 
 issuesRouter.post('/', createIssueController.handle);
 
