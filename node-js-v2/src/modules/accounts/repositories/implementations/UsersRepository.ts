@@ -22,9 +22,7 @@ class UsersRepository implements IUsersRepository {
       password,
     });
 
-    console.log(user);
-
-    // await this.repository.save(user);
+    await this.repository.save(user);
   }
 
   public async findByEmail(email: string): Promise<User> {
