@@ -1,5 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
+import { AppError } from '@shared/error/AppError';
+
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IRequest {
@@ -15,7 +17,15 @@ class UploadUserAvatarUseCase {
   ) {}
 
   async execute({ user_id, avatar_file }: IRequest): Promise<void> {
-    // findById
+    const user = await this.usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('Only authenticated can change avatar', 401);
+    }
+
+    user.avatar = avatar_file;
+
+    await this.usersRepository.create(user);
   }
 }
 
