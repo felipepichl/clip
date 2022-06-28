@@ -9,7 +9,7 @@
     }
   },
   "paths": {
-    "users": {
+    "/users": {
       "post": {
         "tags": ["Users"],
         "summary": "Create users",
@@ -67,6 +67,33 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update a new avatar",
+        "description": "Update a new avatar",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Update a new user"
           }
         }
       }
