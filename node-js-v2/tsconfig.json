@@ -19,8 +19,7 @@
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@controller/*": ["app/controllers/*"],
-      "@entities/*": ["app/entities/*"]
+      "@utils/*": ["utils/*"],
     },
     "typeRoots": [
       "./node_modules/@types",

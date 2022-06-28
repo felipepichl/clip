@@ -1,3 +1,4 @@
+import { deleteFile } from '@utils/file';
 import { injectable, inject } from 'tsyringe';
 
 import { AppError } from '@shared/error/AppError';
@@ -21,6 +22,10 @@ class UploadUserAvatarUseCase {
 
     if (!user) {
       throw new AppError('Only authenticated can change avatar', 401);
+    }
+
+    if (user.avatar) {
+      await deleteFile(`./tmp/avatar/${user.avatar}`);
     }
 
     user.avatar = avatar_file;
