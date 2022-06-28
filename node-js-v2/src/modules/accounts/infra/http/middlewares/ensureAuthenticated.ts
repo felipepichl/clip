@@ -4,17 +4,19 @@ import { verify } from 'jsonwebtoken';
 
 import { AppError } from '@shared/error/AppError';
 
+import { UsersRepository } from '../../../repositories/implementations/UsersRepository';
+
 interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
 }
 
-function ensureAuthenticated(
+async function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
-): void {
+): Promise<void> {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -23,13 +25,22 @@ function ensureAuthenticated(
 
   const [, token] = authHeader.split(' ');
 
-  try {
-    const decoded = verify(token, authConfig.secret);
+  const { secret } = authConfig;
 
-    const { sub } = decoded as ITokenPayload;
+  try {
+    const decoded = verify(token, secret);
+
+    const { sub: user_id } = decoded as ITokenPayload;
+
+    const usersRepository = new UsersRepository();
+    const user = await usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('User does not exists', 401);
+    }
 
     request.user = {
-      id: sub,
+      id: user_id,
     };
 
     return next();
