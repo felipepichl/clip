@@ -1,4 +1,4 @@
-import { UsersRepository } from '@modules/accounts/repositories/implementations/UsersRepository';
+import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IIssuesRepository } from '@modules/issues/repositories/IIssuesRepository';
 import { IssuesRepository } from '@modules/issues/repositories/implementations/IssuesRepository';

@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 
 import { AppError } from '@shared/error/AppError';
 
-import { UsersRepository } from '../../../repositories/implementations/UsersRepository';
+import { UsersRepository } from '../../typeorm/repositories/UsersRepository';
 
 interface ITokenPayload {
   iat: number;
