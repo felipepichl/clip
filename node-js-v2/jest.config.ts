@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// eslint-disable-next-line import/no-unresolved
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { pathsToModuleNameMapper } from 'ts-jest';
 
-const { compilerOptions } = require('./tsconfig.json');
+import { compilerOptions } from './tsconfig.json';
 
 export default {
   // All imported modules in your tests should be mocked automatically

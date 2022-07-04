@@ -3,7 +3,6 @@ import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '@shared/error/AppError';
 
-// import { AppError } from '../../../../shared/error/AppError';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IRequest {
