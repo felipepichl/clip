@@ -1,5 +1,5 @@
 import { ICreateIssueDTO } from '../dtos/ICreateIssueDTO';
-import { Issue } from '../entities/Issue';
+import { Issue } from '../infra/typeorm/entities/Issue';
 
 interface IIssuesRepository {
   create(data: ICreateIssueDTO): Promise<void>;

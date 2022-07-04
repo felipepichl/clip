@@ -1,8 +1,8 @@
 import { Repository, getRepository } from 'typeorm';
 
-import { ICreateIssueDTO } from '../../dtos/ICreateIssueDTO';
-import { Issue } from '../../entities/Issue';
-import { IIssuesRepository } from '../IIssuesRepository';
+import { ICreateIssueDTO } from '../../../dtos/ICreateIssueDTO';
+import { IIssuesRepository } from '../../../repositories/IIssuesRepository';
+import { Issue } from '../entities/Issue';
 
 class IssuesRepository implements IIssuesRepository {
   private issues: Repository<Issue>;

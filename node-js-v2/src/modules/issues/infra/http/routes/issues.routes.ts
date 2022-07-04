@@ -1,8 +1,8 @@
 import { ensureAuthenticated } from '@modules/accounts/infra/http/middlewares/ensureAuthenticated';
 import { Router } from 'express';
 
-import { CreateIssueController } from '../useCases/createIssue/CreateIssueController';
-import { ListIssuesController } from '../useCases/listIssues/ListIssuesController';
+import { CreateIssueController } from '../../../useCases/createIssue/CreateIssueController';
+import { ListIssuesController } from '../../../useCases/listIssues/ListIssuesController';
 
 const issuesRouter = Router();
 
