@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { AppError } from '@shared/error/AppError';
 
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { UsersRepositoryInMemory } from '../../repositories/in-memory/UsersRepositoryInMemory';
@@ -36,5 +37,14 @@ describe('Authenticate User', () => {
     });
 
     expect(response).toHaveProperty('token');
+  });
+
+  it('should not be able to authenticate with non existing user', async () => {
+    await expect(
+      authenticateUserUseCase.execute({
+        email: 'non_existing@example.com',
+        password: 'hash123',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
