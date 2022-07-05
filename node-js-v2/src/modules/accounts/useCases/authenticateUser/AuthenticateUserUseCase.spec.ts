@@ -11,7 +11,7 @@ let createUserUseCase: CreateUserUseCase;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 
 describe('Authenticate User', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
 
     createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
@@ -44,6 +44,25 @@ describe('Authenticate User', () => {
       authenticateUserUseCase.execute({
         email: 'non_existing@example.com',
         password: 'hash123',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to authenticate with wrong password', async () => {
+    const user: ICreateUserDTO = {
+      name: 'John Due',
+      email: 'jonh.due@example.com',
+      password: 'hash123',
+    };
+
+    await createUserUseCase.execute(user);
+
+    const { email } = user;
+
+    await expect(
+      authenticateUserUseCase.execute({
+        email,
+        password: 'wrong-password',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
