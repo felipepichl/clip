@@ -1,16 +1,11 @@
-import { createConnection, getConnectionOptions } from 'typeorm';
+import 'reflect-metadata';
+import { DataSource } from 'typeorm';
 
-// createConnection();
-
-interface IOptions {
-  host: string;
-}
-
-getConnectionOptions().then(options => {
-  const newOptions = options as IOptions;
-
-  newOptions.host = 'database';
-  createConnection({
-    ...options,
-  });
+const AppDataSource = new DataSource({
+  type: 'sqlite',
+  database: './src/shared/infra/typeorm/database.sqlite',
+  entities: ['./src/modules/**/entities/*.ts'],
+  migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
 });
+
+AppDataSource.initialize();
