@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import { IIssuesRepository } from '../../repositories/IIssuesRepository';
+import { IIssuesRepository } from '@modules/issues/repositories/IIssuesRepository';
 
 interface IRequest {
   description: string;

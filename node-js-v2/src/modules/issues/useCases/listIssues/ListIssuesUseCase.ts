@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
-import { Issue } from '../../infra/typeorm/entities/Issue';
-import { IIssuesRepository } from '../../repositories/IIssuesRepository';
+import { Issue } from '@modules/issues/infra/typeorm/entities/Issue';
+import { IIssuesRepository } from '@modules/issues/repositories/IIssuesRepository';
 
 @injectable()
 class ListIssuesUseCase {
