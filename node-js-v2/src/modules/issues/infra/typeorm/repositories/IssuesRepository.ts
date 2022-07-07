@@ -1,14 +1,15 @@
-import { Repository, getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { ICreateIssueDTO } from '@modules/issues/dtos/ICreateIssueDTO';
 import { Issue } from '@modules/issues/infra/typeorm/entities/Issue';
 import { IIssuesRepository } from '@modules/issues/repositories/IIssuesRepository';
+import { AppDataSource } from '@shared/infra/typeorm';
 
 class IssuesRepository implements IIssuesRepository {
   private issues: Repository<Issue>;
 
   constructor() {
-    this.issues = getRepository(Issue);
+    this.issues = AppDataSource.getRepository(Issue);
   }
 
   public async create({
@@ -23,9 +24,7 @@ class IssuesRepository implements IIssuesRepository {
       longitude,
     });
 
-    console.log(issue);
-
-    // await this.issues.save(issue);
+    await this.issues.save(issue);
   }
 
   public async list(): Promise<Issue[]> {
