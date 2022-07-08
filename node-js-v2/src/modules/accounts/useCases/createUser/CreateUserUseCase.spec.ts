@@ -1,17 +1,23 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { AppError } from '@shared/error/AppError';
 
 import { CreateUserUseCase } from './CreateUserUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
+let hashProviderInMemory: HashProviderInMemory;
 let createUserUseCase: CreateUserUseCase;
 let user: ICreateUserDTO;
 
 describe('Create a user', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    hashProviderInMemory = new HashProviderInMemory();
+    createUserUseCase = new CreateUserUseCase(
+      usersRepositoryInMemory,
+      hashProviderInMemory,
+    );
 
     user = {
       name: 'John Due',
