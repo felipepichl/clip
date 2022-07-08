@@ -1,17 +1,24 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from '@modules/accounts/useCases/createUser/CreateUserUseCase';
 import { UploadUserAvatarUseCase } from '@modules/accounts/useCases/uploadUserAvatar/UploadUserAvatarUseCase';
 import { AppError } from '@shared/error/AppError';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
+let hashProviderInMemory: HashProviderInMemory;
 let createUserUseCase: CreateUserUseCase;
 let uploadUserAvatarUseCase: UploadUserAvatarUseCase;
 
 describe('Upload Avatar', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    hashProviderInMemory = new HashProviderInMemory();
+
+    createUserUseCase = new CreateUserUseCase(
+      usersRepositoryInMemory,
+      hashProviderInMemory,
+    );
     uploadUserAvatarUseCase = new UploadUserAvatarUseCase(
       usersRepositoryInMemory,
     );

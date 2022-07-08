@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from '@modules/accounts/useCases/createUser/CreateUserUseCase';
 import { AppError } from '@shared/error/AppError';
@@ -7,16 +8,22 @@ import { AppError } from '@shared/error/AppError';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
+let hashProviderInMemory: HashProviderInMemory;
 let createUserUseCase: CreateUserUseCase;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 
 describe('Authenticate User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
+    hashProviderInMemory = new HashProviderInMemory();
 
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(
+      usersRepositoryInMemory,
+      hashProviderInMemory,
+    );
     authenticateUserUseCase = new AuthenticateUserUseCase(
       usersRepositoryInMemory,
+      hashProviderInMemory,
     );
   });
 
