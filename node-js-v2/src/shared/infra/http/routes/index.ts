@@ -7,8 +7,8 @@ import { issuesRouter } from '@modules/issues/infra/http/routes/issues.routes';
 const router = Router();
 
 router.use('/users', usersRouter);
-router.use(authenticateRoutes);
 
+router.use(authenticateRoutes);
 router.use('/issues', issuesRouter);
 
 export { router };
