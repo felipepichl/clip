@@ -1,2 +1,5 @@
 node_modules
 dist
+tmp/avatar/*
+!tmp/avatar/.gitkeep
+
