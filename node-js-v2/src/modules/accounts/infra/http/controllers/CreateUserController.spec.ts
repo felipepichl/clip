@@ -9,6 +9,10 @@ describe('Create User Controller', () => {
     await AppDataSource.runMigrations();
   });
 
+  afterAll(async () => {
+    await AppDataSource.dropDatabase();
+  });
+
   it('should be able to create a new user', async () => {
     const response = await request(app).post('/users').send({
       name: 'John Due',
