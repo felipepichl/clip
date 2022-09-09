@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe';
 import { authConfig } from '@config/auth';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
@@ -26,6 +27,8 @@ class AuthenticateUserUseCase {
     private usersRepository: IUsersRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+    @inject('UsersTokensRepository')
+    private usersTokensRepository: IUsersTokensRepository,
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -44,17 +47,25 @@ class AuthenticateUserUseCase {
       throw new AppError('Incorret email/password combination');
     }
 
-    const { secret, expiresIn } = authConfig;
+    const { secret, expires_in_token: expiresIn } = authConfig;
 
     const token = sign({}, secret, {
       subject: user.id,
       expiresIn,
     });
 
+    // await this.usersTokensRepository.create({
+    //   user_id: user.id,
+    //   expires_date: refresh_token_expires_date,
+    //   refresh_token,
+    // });
+
+    const { name } = user;
+
     const returnResponse: IResponse = {
       user: {
-        name: user.name,
-        email: user.email,
+        name,
+        email,
       },
       token,
     };
