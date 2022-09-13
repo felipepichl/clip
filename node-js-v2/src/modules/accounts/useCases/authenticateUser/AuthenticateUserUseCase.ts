@@ -5,6 +5,7 @@ import { authConfig } from '@config/auth';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
+import { IDateProvider } from '@shared/container/providers/DateProvider/model/IDateProvider';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
@@ -29,6 +30,8 @@ class AuthenticateUserUseCase {
     private hashProvider: IHashProvider,
     @inject('UsersTokensRepository')
     private usersTokensRepository: IUsersTokensRepository,
+    @inject('DateProvider')
+    private dateProvider: IDateProvider,
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -47,18 +50,33 @@ class AuthenticateUserUseCase {
       throw new AppError('Incorret email/password combination');
     }
 
-    const { secret, expires_in_token: expiresIn } = authConfig;
+    const {
+      secret_token,
+      expires_in_token,
+      secret_refresh_token,
+      expires_in_refresh_token,
+      expires_refresh_token_days,
+    } = authConfig;
 
-    const token = sign({}, secret, {
+    const token = sign({}, secret_token, {
       subject: user.id,
-      expiresIn,
+      expiresIn: expires_in_token,
     });
 
-    // await this.usersTokensRepository.create({
-    //   user_id: user.id,
-    //   expires_date: refresh_token_expires_date,
-    //   refresh_token,
-    // });
+    const refresh_token = sign({ email }, secret_refresh_token, {
+      subject: user.id,
+      expiresIn: expires_in_refresh_token,
+    });
+
+    const refresh_token_expires_date = this.dateProvider.addDays(
+      expires_refresh_token_days,
+    );
+
+    await this.usersTokensRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
+    });
 
     const { name } = user;
 
