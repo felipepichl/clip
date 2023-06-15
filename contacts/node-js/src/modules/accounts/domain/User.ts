@@ -1,14 +1,16 @@
 import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
 
-interface IProps {
+interface IUserProps {
   name: string;
   cpf: string;
   whatsapp: string;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
-class User extends AggregateRoot<IProps> {
-  constructor(props: IProps, id?: UniqueEntityID) {
+class User extends AggregateRoot<IUserProps> {
+  constructor(props: IUserProps, id?: UniqueEntityID) {
     super(props, id);
   }
 
@@ -22,6 +24,24 @@ class User extends AggregateRoot<IProps> {
 
   get whatsapp(): string {
     return this.props.whatsapp;
+  }
+
+  public static createUser({
+    name,
+    cpf,
+    whatsapp,
+    created_at,
+    updated_at,
+  }: IUserProps): User {
+    const userProps = {
+      name,
+      cpf,
+      whatsapp,
+      created_at,
+      updated_at,
+    };
+
+    return AggregateRoot.create({ props: userProps }, User);
   }
 }
 
