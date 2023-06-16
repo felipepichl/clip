@@ -8,8 +8,7 @@ describe('Create a new User', () => {
       whatsapp: '5555999999999',
     });
 
-    console.log(user);
-
+    expect(user instanceof User).toBe(true);
     expect(user).toBeTruthy();
   });
 });
