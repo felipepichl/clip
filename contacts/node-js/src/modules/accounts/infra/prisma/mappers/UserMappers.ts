@@ -3,12 +3,11 @@ import { User as RawUser } from '@prisma/client';
 
 import { Mapper } from '@shared/core/infra/Mapper';
 
-class UserMappers extends Mapper<User> {
-  static toPersistence(user: User): User {
-    return user;
+class UserMappers extends Mapper<User, RawUser> {
+  toPersistence(object: User): User {
+    return object;
   }
-
-  static toDomain(raw: RawUser): User {
+  toDomain(raw: RawUser): User {
     return User.createUser(raw);
   }
 }

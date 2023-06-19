@@ -1,11 +1,6 @@
-class Mapper<T> {
-  static toPersistence<U>(object: U): T {
-    throw new Error("Method 'toPersistence' not implemented");
-  }
-
-  static toDomain<U>(raw: U): T {
-    throw new Error("Method 'toDomain' not implemented");
-  }
+abstract class Mapper<T, U> {
+  abstract toPersistence(object: T): T;
+  abstract toDomain(raw: U): T;
 }
 
 export { Mapper };
