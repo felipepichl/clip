@@ -1,6 +1,7 @@
-abstract class Mapper<T, U> {
-  abstract toPersistence(object: T): T;
-  abstract toDomain(raw: U): T;
+interface IMapper<T, U> {
+  toPersistence(object: T): T;
+  toDomain(raw: U): T;
+  getMapper(): IMapper<T, U>;
 }
 
-export { Mapper };
+export { IMapper };
