@@ -23,13 +23,13 @@ class UsersRepository implements IUsersRepository {
     });
   }
 
-  // async findByEmail(email: string): Promise<User> {
-  //   const result = await this.prisma.user.findUnique({
-  //     where: {},
-  //   });
+  async findByCpf(cpf: string): Promise<User> {
+    const result = await this.prisma.user.findUnique({
+      where: { cpf },
+    });
 
-  //   return result;
-  // }
+    return UserMappers.getMapper().toDomain(result);
+  }
 
   async findById(user_id: string): Promise<User> {
     const result = await this.prisma.user.findUnique({
