@@ -28,6 +28,10 @@ class UsersRepository implements IUsersRepository {
       where: { cpf },
     });
 
+    if (!result) {
+      return null;
+    }
+
     return UserMappers.getMapper().toDomain(result);
   }
 
