@@ -2,6 +2,7 @@ import { User } from '@modules/accounts/domain/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 
+import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
@@ -11,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateUserUseCase {
+class CreateUserUseCase implements IUseCase<IRequest, void> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
