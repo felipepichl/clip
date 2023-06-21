@@ -24,6 +24,10 @@ class CreateUserUseCase {
       throw new AppError('Users already exists', 400);
     }
 
+    if (!cpf) {
+      throw new AppError('without providing the CPF', 400);
+    }
+
     const user = User.createUser({
       name,
       cpf,
