@@ -18,14 +18,14 @@ class CreateUserUseCase {
   ) {}
 
   async execute({ name, cpf, whatsapp }: IRequest): Promise<void> {
+    if (!cpf) {
+      throw new AppError('CPF is required', 400);
+    }
+
     const userAllReadyExists = await this.usersRepository.findByCpf(cpf);
 
     if (userAllReadyExists) {
-      throw new AppError('Users already exists', 400);
-    }
-
-    if (!cpf) {
-      throw new AppError('without providing the CPF', 400);
+      throw new AppError(`User with CPF '${cpf}' already exists`, 409);
     }
 
     const user = User.createUser({
