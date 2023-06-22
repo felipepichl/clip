@@ -1,20 +1,15 @@
 import { User } from '@modules/accounts/domain/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { PrismaClient } from '@prisma/client';
+
+import { getPrismaClient } from '@shared/infra/prisma';
 
 import { UserMappers } from '../mappers/UserMappers';
 
 class UsersRepository implements IUsersRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
   async create(user: User): Promise<void> {
     const { name, cpf, whatsapp } = UserMappers.getMapper().toPersistence(user);
 
-    await this.prisma.user.create({
+    await getPrismaClient().user.create({
       data: {
         name,
         cpf,
@@ -24,7 +19,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   async findByCpf(cpf: string): Promise<User> {
-    const result = await this.prisma.user.findUnique({
+    const result = await getPrismaClient().user.findUnique({
       where: { cpf },
     });
 
@@ -36,7 +31,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   async findById(user_id: string): Promise<User> {
-    const result = await this.prisma.user.findUnique({
+    const result = await getPrismaClient().user.findUnique({
       where: {
         id: user_id,
       },

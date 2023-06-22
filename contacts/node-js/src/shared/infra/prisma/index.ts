@@ -16,4 +16,8 @@ function closePrismaConnection(): void {
   }
 }
 
+process.on('beforeExit', closePrismaConnection);
+process.on('SIGINT', closePrismaConnection);
+process.on('SIGTERM', closePrismaConnection);
+
 export { getPrismaClient, closePrismaConnection };
