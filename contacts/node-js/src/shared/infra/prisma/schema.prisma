@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   cpf      String @unique
   whatsapp String
@@ -16,20 +16,5 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  UsersTokens UserTokens[]
-
   @@map("users")
-}
-
-model UserTokens {
-  id            String   @id @default(uuid())
-  refresh_token String
-  expires_date  DateTime
-
-  created_at DateTime @default(now())
-
-  users      User   @relation(fields: [fk_user_id], references: [id])
-  fk_user_id String
-
-  @@map("users_tokens")
 }
