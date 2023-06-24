@@ -2,43 +2,30 @@ import type {
   EnvironmentContext,
   JestEnvironmentConfig,
 } from '@jest/environment';
+import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
-import fs from 'fs';
 import NodeEnvironment from 'jest-environment-node';
-import { exec } from 'node:child_process';
-import crypto from 'node:crypto';
-import util from 'node:util';
-import path from 'path';
+import { MongoClient } from 'mongodb';
 
-dotenv.config({ path: '.env.testing' });
-
-const execSync = util.promisify(exec);
-
-const prismaBinary = './node_modules/.bin/prisma';
+dotenv.config({ path: '.env.test' });
 
 export default class PrismaTestEnvironment extends NodeEnvironment {
-  private schema: string;
   private connectionString: string;
-  private prismaLocation: string;
+  private prisma: PrismaClient;
 
   constructor(config: JestEnvironmentConfig, _context?: EnvironmentContext) {
     super(config, _context);
 
-    this.schema = `test_${crypto.randomUUID()}.db`;
-    this.connectionString = `file:./${this.schema}`;
-    this.prismaLocation = '--schema=./src/shared/infra/prisma/schema.prisma';
-  }
-
-  async setup() {
-    process.env.DATABASE_URL = this.connectionString;
-    this.global.process.env.DATABASE_URL = this.connectionString;
-
-    await execSync(`${prismaBinary} migrate deploy ${this.prismaLocation}`);
-
-    return super.setup();
+    this.connectionString = process.env.DATABASE_TEST_URL || '';
+    this.prisma = new PrismaClient();
   }
 
   async teardown() {
-    fs.unlinkSync(path.join(__dirname, '..', 'prisma', this.schema));
+    await this.prisma.$disconnect();
+
+    const client = new MongoClient(this.connectionString);
+    await client.connect();
+    // await client.db().dropDatabase();
+    await client.close();
   }
 }
