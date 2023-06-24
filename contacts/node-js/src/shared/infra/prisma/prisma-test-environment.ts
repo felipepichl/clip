@@ -17,6 +17,7 @@ export default class PrismaTestEnvironment extends NodeEnvironment {
     super(config, _context);
 
     this.connectionString = process.env.DATABASE_TEST_URL || '';
+
     this.prisma = new PrismaClient();
   }
 
