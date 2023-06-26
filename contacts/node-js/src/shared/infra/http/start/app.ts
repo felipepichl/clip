@@ -4,7 +4,6 @@ import sweggerUi from 'swagger-ui-express';
 import { AppError } from '@shared/error/AppError';
 
 import 'express-async-errors';
-// import '@shared/infra/typeorm/';
 import '@shared/container';
 
 import sweggerFile from '../../../../../swegger.json';
