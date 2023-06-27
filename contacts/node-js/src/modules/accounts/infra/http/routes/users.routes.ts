@@ -1,10 +1,10 @@
-import { CreateUserController } from '@modules/accounts/infra/http/controllers/createUser/CreateUserController';
-import { Router } from 'express';
+import { CreateUserController } from '@modules/accounts/infra/http/controllers/createUser/CreateUserController'
+import { Router } from 'express'
 
-const usersRouter = Router();
+const usersRouter = Router()
 
-const createUserController = new CreateUserController();
+const createUserController = new CreateUserController()
 
-usersRouter.post('', createUserController.handle);
+usersRouter.post('', createUserController.handle)
 
-export { usersRouter };
+export { usersRouter }

@@ -1,48 +1,48 @@
-import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
-import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
+import { AggregateRoot } from '@shared/core/domain/AggregateRoot'
+import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
 
 interface IUserProps {
-  name: string;
-  cpf: string;
-  whatsapp: string;
-  created_at?: Date;
-  updated_at?: Date;
+  name: string
+  cpf: string
+  whatsapp: string
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 class User extends AggregateRoot<IUserProps> {
   constructor(props: IUserProps, id?: UniqueEntityID) {
-    super(props, id);
+    super(props, id)
   }
 
   get name(): string {
-    return this.props.name;
+    return this.props.name
   }
 
   get cpf(): string {
-    return this.props.cpf;
+    return this.props.cpf
   }
 
   get whatsapp(): string {
-    return this.props.whatsapp;
+    return this.props.whatsapp
   }
 
   public static createUser({
     name,
     cpf,
     whatsapp,
-    created_at,
-    updated_at,
+    createdAt,
+    updatedAt,
   }: IUserProps): User {
     const userProps = {
       name,
       cpf,
       whatsapp,
-      created_at,
-      updated_at,
-    };
+      createdAt,
+      updatedAt,
+    }
 
-    return AggregateRoot.create({ props: userProps }, User);
+    return AggregateRoot.create({ props: userProps }, User)
   }
 }
 
-export { User };
+export { User }

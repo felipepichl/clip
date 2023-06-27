@@ -1,13 +1,13 @@
-import { User } from '@modules/accounts/domain/User';
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { User } from '@modules/accounts/domain/User'
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 
-import { getPrismaClient } from '@shared/infra/prisma';
+import { getPrismaClient } from '@shared/infra/prisma'
 
-import { UserMappers } from '../mappers/UserMappers';
+import { UserMappers } from '../mappers/UserMappers'
 
 class UsersRepository implements IUsersRepository {
   async create(user: User): Promise<void> {
-    const { name, cpf, whatsapp } = UserMappers.getMapper().toPersistence(user);
+    const { name, cpf, whatsapp } = UserMappers.getMapper().toPersistence(user)
 
     await getPrismaClient().user.create({
       data: {
@@ -15,30 +15,30 @@ class UsersRepository implements IUsersRepository {
         cpf,
         whatsapp,
       },
-    });
+    })
   }
 
   async findByCpf(cpf: string): Promise<User> {
     const result = await getPrismaClient().user.findUnique({
       where: { cpf },
-    });
+    })
 
     if (!result) {
-      return null;
+      return null
     }
 
-    return UserMappers.getMapper().toDomain(result);
+    return UserMappers.getMapper().toDomain(result)
   }
 
-  async findById(user_id: string): Promise<User> {
+  async findById(userId: string): Promise<User> {
     const result = await getPrismaClient().user.findUnique({
       where: {
-        id: user_id,
+        id: userId,
       },
-    });
+    })
 
-    return UserMappers.getMapper().toDomain(result);
+    return UserMappers.getMapper().toDomain(result)
   }
 }
 
-export { UsersRepository };
+export { UsersRepository }

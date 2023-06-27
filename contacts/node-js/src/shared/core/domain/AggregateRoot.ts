@@ -1,27 +1,27 @@
-import { Entity } from './Entity';
-import { ICreateProps } from './ICreateProps';
-import { UniqueEntityID } from './UniqueEntityID';
+import { Entity } from './Entity'
+import { ICreateProps } from './ICreateProps'
+import { UniqueEntityID } from './UniqueEntityID'
 
 abstract class AggregateRoot<T> extends Entity<T> {
   get id(): UniqueEntityID {
-    return this._id;
+    return this._id
   }
 
   public static create<T, U>(
     params: ICreateProps<U>,
     Clazz: new (props: U) => T,
   ): T {
-    const { props } = params;
+    const { props } = params
     const updatedProps = {
       ...props,
       created_at: props.created_at ?? new Date(),
       updated_at: props.updated_at ?? new Date(),
-    } as U;
+    } as U
 
-    const instance = new Clazz(updatedProps);
+    const instance = new Clazz(updatedProps)
 
-    return instance;
+    return instance
   }
 }
 
-export { AggregateRoot };
+export { AggregateRoot }
