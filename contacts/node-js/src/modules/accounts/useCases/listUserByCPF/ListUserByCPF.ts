@@ -19,18 +19,18 @@ class ListUserByCPF implements IUseCase<IRequest, IResponse> {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute({ cpf }: IRequest): Promise<IRequest | IResponse> {
+  async execute({ cpf }: IRequest): Promise<IResponse> {
     if (!cpf) {
       throw new AppError('CPF is Required', 409)
     }
 
-    const user = await this.usersRepository.findByCpf(cpf)
+    const user = await this.usersRepository.findByCPF(cpf)
 
     if (!user) {
-      throw new AppError('User not found', 400)
+      throw new AppError('User not found', 404)
     }
 
-    return user
+    return { user }
   }
 }
 

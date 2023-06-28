@@ -23,7 +23,7 @@ class CreateUserUseCase implements IUseCase<IRequest, void> {
       throw new AppError('CPF is required', 400)
     }
 
-    const userAllReadyExists = await this.usersRepository.findByCpf(cpf)
+    const userAllReadyExists = await this.usersRepository.findByCPF(cpf)
 
     if (userAllReadyExists) {
       throw new AppError(`User with CPF '${cpf}' already exists`, 409)

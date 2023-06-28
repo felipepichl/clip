@@ -25,7 +25,7 @@ describe('Create a user', () => {
 
     const { cpf } = user
 
-    const userCreated = await usersRepositoryInMemory.findByCpf(cpf)
+    const userCreated = await usersRepositoryInMemory.findByCPF(cpf)
 
     expect(userCreated).toBeDefined()
     expect(userCreated?.name).toEqual(user.name)

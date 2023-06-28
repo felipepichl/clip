@@ -18,7 +18,7 @@ class UsersRepository implements IUsersRepository {
     })
   }
 
-  async findByCpf(cpf: string): Promise<User> {
+  async findByCPF(cpf: string): Promise<User> {
     const result = await getPrismaClient().user.findUnique({
       where: { cpf },
     })

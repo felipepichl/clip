@@ -9,7 +9,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     this.users.push(user)
   }
 
-  async findByCpf(cpf: string): Promise<User> {
+  async findByCPF(cpf: string): Promise<User> {
     const user = this.users.find((user) => user.cpf === cpf)
 
     return user
