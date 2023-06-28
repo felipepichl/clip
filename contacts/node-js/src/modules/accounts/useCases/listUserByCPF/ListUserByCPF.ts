@@ -8,18 +8,18 @@ interface IRequest {
   cpf: string
 }
 
-interface IRespose {
+interface IResponse {
   user: User
 }
 
 @injectable()
-class ListUserByCPF implements IUseCase<IRequest, IRespose> {
+class ListUserByCPF implements IUseCase<IRequest, IResponse> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute({ cpf }: IRequest): Promise<IRequest | IRespose> {
+  async execute({ cpf }: IRequest): Promise<IRequest | IResponse> {
     if (!cpf) {
       throw new AppError('CPF is Required', 409)
     }
