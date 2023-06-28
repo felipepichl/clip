@@ -13,26 +13,25 @@ interface IRespose {
 }
 
 @injectable()
-class LisUserByCPF implements IUseCase<IRequest, IRespose> {
+class ListUserByCPF implements IUseCase<IRequest, IRespose> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(
-    { cpf }: IRequest,
-    response: IRespose,
-  ): Promise<IRequest | IRespose> {
+  async execute({ cpf }: IRequest): Promise<IRequest | IRespose> {
     if (!cpf) {
       throw new AppError('CPF is Required', 409)
     }
 
     const user = await this.usersRepository.findByCpf(cpf)
 
-    response.user = user
+    if (!user) {
+      throw new AppError('User not found', 400)
+    }
 
-    return response
+    return user
   }
 }
 
-export { LisUserByCPF }
+export { ListUserByCPF }

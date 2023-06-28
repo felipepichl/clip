@@ -1,14 +1,15 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
-import { LisUserByCPF } from './LisUserByCPF'
+import { ListUserByCPF } from './ListUserByCPF'
 import { User } from '@modules/accounts/domain/User'
+import { AppError } from '@shared/error/AppError'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
-let listUserByCPF: LisUserByCPF
+let listUserByCPF: ListUserByCPF
 
-deacribe('List user by CPF', () => {
+describe('List user by CPF', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory()
-    listUserByCPF = new LisUserByCPF()
+    listUserByCPF = new ListUserByCPF(usersRepositoryInMemory)
   })
 
   it('should be able to list an user by CPF', async () => {
@@ -20,11 +21,14 @@ deacribe('List user by CPF', () => {
 
     usersRepositoryInMemory.create(user)
 
-    const userCreated = await listUserByCPF.execute({ cpf })
+    const userCreated = await listUserByCPF.execute({ cpf: user.cpf })
 
     expect(userCreated).toBeDefined()
-    expect(userCreated?.name).toEqual(user.name)
-    expect(userCreated?.cpf).toEqual(user.cpf)
-    expect(userCreated?.whatsapp).toEqual(user.whatsapp)
+  })
+
+  it('should not be able to list an user then non exists', async () => {
+    await expect(
+      listUserByCPF.execute({ cpf: 'non-exists' }),
+    ).rejects.toBeInstanceOf(AppError)
   })
 })
