@@ -80,6 +80,18 @@
         ],
         "summary": "Get users",
         "description": "Get a list of users",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "query",
+            "description": "CPF (Brazilian identification number) of the user",
+            "schema": {
+              "type": "string",
+              "example": "111.222.333-44"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
